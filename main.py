@@ -8,7 +8,7 @@ import time
 screen = Screen()
 screen.setup(600, 600)
 screen.bgcolor("black")
-screen.title("Lael & Gia Snake Game")
+screen.title("Lael's Snake Game")
 screen.tracer(0)
 
 snake = Snake()
@@ -36,17 +36,18 @@ while game_is_on:
 
     # Detect collision with wall.
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_is_on = False
-        scoreboard.game_over()
+        scoreboard.reset()
+        snake.reset()
 
     # Detect collision with tail.
     # if head collision with any segment in the tail:
     # trigger game_over
     for segment in snake.segments[1:]:
-
-        if snake.head.distance(segment) < 10:
-            game_is_on = False
-            scoreboard.game_over()
+        if segment == snake.head:
+            pass
+        elif snake.head.distance(segment) < 10:
+            scoreboard.reset()
+            snake.reset()
 
 screen.exitonclick()
 
